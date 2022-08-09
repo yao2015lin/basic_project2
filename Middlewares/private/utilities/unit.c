@@ -186,6 +186,7 @@ void read_task_stack(char const *name , xTaskHandle taskHandle)
 
 uint8_t sysclock_is_pll( void )
 {
+	#if 0
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
     uint32_t FLatency;
     
@@ -195,6 +196,7 @@ uint8_t sysclock_is_pll( void )
     {
         return FALSE;
     }
+	#endif
     
     return TRUE;
 

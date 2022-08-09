@@ -1,10 +1,7 @@
 #ifndef __WATCHDOG_H
 #define __WATCHDOG_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+
 
 #include "cmsis_os.h"
 #include "unit.h"
@@ -15,8 +12,5 @@ extern "C"
 
 extern void feed_dog( void );
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* __WATCHDOG_H */

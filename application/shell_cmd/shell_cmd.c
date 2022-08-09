@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string.h>
-#include <shell_cmd.h>
+#include "shell_cmd.h"
 
-
-static cmd_tbl_t *__shell_cmd_start = __section_begin("_shell_cmd");
-static cmd_tbl_t *__shell_cmd_end = __section_end("_shell_cmd");
+#define  $$BaseSectionshell  ".ARM.__AT_0x08000400"
+#define $$LimitSectionshell  ".ARM.__AT_0x08000500"
+static cmd_tbl_t *__shell_cmd_start  __attribute__((used)) __attribute__((section($$BaseSectionshell)));
+static cmd_tbl_t *__shell_cmd_end  __attribute__((used)) __attribute__((section($$LimitSectionshell)));
 
 static char console_buffer[CFG_CBSIZE]; 
 static char *delete_char(char *buffer, char *p, int *colp, int *np, int plen);
@@ -487,7 +488,7 @@ int do_help(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 
         if (cmd_items > 30)
         {
-            log(ERR, "cmd_array定义的太少，请�?�加,cmd_items=%d.\n", cmd_items);
+            log(ERR, "cmd_array~{6(Re5DL+IY#,Gk~}???~{<S~},cmd_items=%d.\n", cmd_items);
         }
         /* Make array of commands from .uboot_cmd section */
         cmdtp = __shell_cmd_start;
@@ -584,8 +585,8 @@ int do_clear(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 }
 SHELL_CMD_REG(
     clear, 1, 1, do_clear,
-    "clear\t清空屏幕\n",
-    "清空屏幕\n");
+    "clear\t~{Ge?UFAD;~}\n",
+    "~{Ge?UFAD;~}\n");
 
 
 static void shell_cmd_task(void const *pvParameters)

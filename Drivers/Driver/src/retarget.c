@@ -29,8 +29,8 @@
 #include <stdio.h>
 #include <rt_misc.h>
 #include <stdint.h>
-#include "BAT32G157.h"
 #include "userdefine.h"
+#include "BAT32G157.h"
 #include "sci.h"
 
 #if defined ( __CC_ARM   )

@@ -1,5 +1,6 @@
 #include "shell_cmd.h"
-
+#include "FreeRTOS.h"
+#include "task.h"
 #include "unit.h"
 
 int do_ls(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])

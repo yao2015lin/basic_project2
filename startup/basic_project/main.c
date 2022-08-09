@@ -1,12 +1,12 @@
 
 /* Includes ------------------------------------------------------------------*/
-#include "startup.h"
-#include "stm32l4xx_hal.h"
+//#include "startup.h"
+#include "BAT32G157.h"
 #include "cmsis_os.h"
 #include "init_d.h"
 #include "unit.h"
 #include "miscdevice.h"
-#include "serial1.h"
+//#include "serial1.h"
 #include "time.h"
 #include "cmb_def.h"
 #include "version.h"
@@ -45,13 +45,13 @@ void prtsrce_sysinf(void)
     printf(" *\tSoft version =%s\n" ,SOFT_VERSION);
     printf(" *\tHardware version =%s\n" ,HARD_VERSION);
     printf(" *\tHardfault debug tool version =%s\n" ,CMB_SW_VERSION);
-    printf(" *\tCPU:STM32L471REXX\n");
-    printf(" *\tHCLK:%dHz\n", HAL_RCC_GetHCLKFreq());
-    printf(" *\tPCLK1:%dHz\n", HAL_RCC_GetPCLK1Freq());
-    printf(" *\tPCLK2:%dHz\n", HAL_RCC_GetPCLK2Freq());
-    printf(" *\tHAL version:0x%X\n", HAL_GetHalVersion());
-    printf(" *\tDevice revision ID:0x%X\n", HAL_GetREVID());
-    printf(" *\tDevice ID:0x%X\n", HAL_GetDEVID());
+    printf(" *\tCPU:BAT32G157\n");
+    //printf(" *\tHCLK:%dHz\n", HAL_RCC_GetHCLKFreq());
+    //printf(" *\tPCLK1:%dHz\n", HAL_RCC_GetPCLK1Freq());
+   // printf(" *\tPCLK2:%dHz\n", HAL_RCC_GetPCLK2Freq());
+    //printf(" *\tHAL version:0x%X\n", HAL_GetHalVersion());
+   // printf(" *\tDevice revision ID:0x%X\n", HAL_GetREVID());
+   // printf(" *\tDevice ID:0x%X\n", HAL_GetDEVID());
     printf(" *\tUnique device ID:0x");
     for (i = 0; i < 12; i++)
     {
@@ -101,19 +101,19 @@ int main(void)
     HAL_HardfaultDebug_init();
     
     /* reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+    //HAL_Init();
 
     /* Get chip uid*/
     HAL_GetUID();
 
     /* Configure the system clock */
-    HAL_Sysclk_Init();
+    //HAL_Sysclk_Init();
 
     /* Config pwr clock*/
-    HAL_Pwr_Init();
+    //HAL_Pwr_Init();
     
     /* Init serial for printf port*/
-    HAL_Debug_init();
+    //HAL_Debug_init();
 
     /* Printf system info ,clock device version...*/
     prtsrce_sysinf();

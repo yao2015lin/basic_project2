@@ -167,9 +167,9 @@ static int ws2812_open(FIL_HAND *fd)
 
 static struct rgb_type
 {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    uint8_t *r;
+    uint8_t *g;
+    uint8_t *b;
 };
 
 int ws2812_write(FIL_HAND *fd, const void *buf, uint32_t count)
@@ -179,11 +179,11 @@ int ws2812_write(FIL_HAND *fd, const void *buf, uint32_t count)
 
     if( count > PIXEL_MAX)
     {
-        log(ERR , "")
+        log(ERR , "");
     }
     for (i = 0; i < PIXEL_MAX; i++)
     {
-        send_rgb_bytes(t->r[i], t->g[i], t->b[i]);
+        send_rgb_bytes((uint8_t)t->r[i], (uint8_t)t->g[i], (uint8_t)t->b[i]);
     }
     pixel_update();
     

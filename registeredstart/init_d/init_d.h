@@ -2,29 +2,27 @@
 #define __INIT_D_H
 
 
-#ifdef __cplusplus
- extern "C" {
-#endif
+
 
 #include <stdbool.h>
 #include "BAT32G157.h"
 #include "unit.h"
 
-#pragma section ="fn1" 
-#pragma section ="fn2" 
-#pragma section ="fn3" 
-#pragma section ="fn4" 
-#pragma section ="fn5" 
-#pragma section ="fn6" 
-#pragma section ="fn7" 
+//#pragma section ="fn1" 
+//#pragma section ="fn2" 
+//#pragma section ="fn3" 
+//#pragma section ="fn4" 
+//#pragma section ="fn5" 
+//#pragma section ="fn6" 
+//#pragma section ="fn7" 
 
-#define FN1  @ "fn1"
-#define FN2  @ "fn2"
-#define FN3  @ "fn3"
-#define FN4  @ "fn4"
-#define FN5  @ "fn5"
-#define FN6  @ "fn6"
-#define FN7  @ "fn7"
+#define FN1  ".ARM.__AT_0x080000e0"
+#define FN2  ".ARM.__AT_0x080000f0"
+#define FN3  ".ARM.__AT_0x08000240"
+#define FN4  ".ARM.__AT_0x08000260"
+#define FN5  ".ARM.__AT_0x08000340"
+#define FN6  ".ARM.__AT_0x08000380"
+#define FN7  ".ARM.__AT_0x080003C0"
 
 //typedef int (*initcall_t)(void);
 
@@ -34,8 +32,8 @@ typedef struct  _initcall_t
 }initcall_t;
 
 #define __define_initcall(fn,id)  \
-    __root static initcall_t  __initcall_##fn \
-    FN##id = { fn }
+    static initcall_t  __initcall_##fn \
+    __attribute__((used)) __attribute__((section(FN##id))) = { fn }
 
 
 #define arch_init(fn)       __define_initcall( fn , 1)
@@ -53,8 +51,6 @@ extern void driver_init(void);
 extern void task_start( void );   
 extern void task_resume( void );
 extern void task_suspend( void ); 
-#ifdef __cplusplus
-}
-#endif   
+ 
 
 #endif /* __DRIVER_REGISTER_H */

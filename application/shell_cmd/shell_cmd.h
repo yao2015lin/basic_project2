@@ -18,9 +18,9 @@ extern "C"
 
 #define CLEAR() printf("\033[2J") 
   
-#pragma section = "_shell_cmd"
+#define  shell_cmd_section   ".ARM.__AT_0x08000400"
 
-#define SHELL @ "_shell_cmd"
+#define  SHELL         __attribute__((used)) __attribute__((section(shell_cmd_section)))
 
 struct cmd_tbl_s
 {
@@ -36,7 +36,7 @@ struct cmd_tbl_s
 typedef struct cmd_tbl_s cmd_tbl_t;
 
 #define SHELL_CMD_REG(name,maxargs,rep,cmd,usage,help) \
-__root cmd_tbl_t __shell_cmd_##name SHELL= {#name, maxargs, rep, cmd, usage, help}
+cmd_tbl_t __shell_cmd_##name SHELL= {#name, maxargs, rep, cmd, usage, help}
 
 
 
