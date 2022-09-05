@@ -2,6 +2,7 @@
 #include "time.h"
 #include "startup.h"
 
+
 char printf_buffer[256];
 uint32_t    sysDebugFlag = 0xFF;
 
@@ -177,7 +178,7 @@ void read_task_stack(char const *name , xTaskHandle taskHandle)
 {
     unsigned portBASE_TYPE uxHighWaterMark; 
     
-    uxHighWaterMark = uxTaskGetStackHighWaterMark(taskHandle);
+    //uxHighWaterMark = uxTaskGetStackHighWaterMark(taskHandle);
 
     log(WARN,"[%s]stack surplus = %d.\r\n" ,name,uxHighWaterMark);
     

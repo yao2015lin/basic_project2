@@ -18,9 +18,13 @@ extern "C"
 
 #define CLEAR() printf("\033[2J") 
   
-#define  shell_cmd_section   ".ARM.__AT_0x08000400"
+#define  shell_cmd_section   "shell_cmd"
 
 #define  SHELL         __attribute__((used)) __attribute__((section(shell_cmd_section)))
+
+#define  shell_cmd_end_section   "shell_cmd.end"
+
+#define  SHELL_END         __attribute__((used)) __attribute__((section(shell_cmd_end_section)))
 
 struct cmd_tbl_s
 {
@@ -38,7 +42,8 @@ typedef struct cmd_tbl_s cmd_tbl_t;
 #define SHELL_CMD_REG(name,maxargs,rep,cmd,usage,help) \
 cmd_tbl_t __shell_cmd_##name SHELL= {#name, maxargs, rep, cmd, usage, help}
 
-
+#define SHELL_CMD_END_REG(name,maxargs,rep,cmd,usage,help) \
+cmd_tbl_t __shell_cmd_##name SHELL_END= {#name, maxargs, rep, cmd, usage, help}
 
 //extern int run_command(const char *cmd, int flag);
 //extern int readline(const char *const prompt);

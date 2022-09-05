@@ -2,10 +2,22 @@
 #include <string.h>
 #include "shell_cmd.h"
 
-#define  $$BaseSectionshell  ".ARM.__AT_0x08000400"
-#define $$LimitSectionshell  ".ARM.__AT_0x08000500"
-static cmd_tbl_t *__shell_cmd_start  __attribute__((used)) __attribute__((section($$BaseSectionshell)));
-static cmd_tbl_t *__shell_cmd_end  __attribute__((used)) __attribute__((section($$LimitSectionshell)));
+#define  BaseSectionshell  "0x08000400"
+#define  LimitSectionshell  "0x080004fc"
+
+//static cmd_tbl_t *__shell_cmd_start   __attribute__((section(BaseSectionshell)));
+//static cmd_tbl_t *__shell_cmd_end     __attribute__((section(LimitSectionshell)));
+static int shell_cmd_start(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+{
+    return 0;
+}
+
+SHELL_CMD_REG(start,0,0,shell_cmd_start,NULL,NULL);
+static int shell_cmd_end(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
+{
+    return 0;
+}
+SHELL_CMD_END_REG(end,0,0,shell_cmd_end,NULL,NULL);
 
 static char console_buffer[CFG_CBSIZE]; 
 static char *delete_char(char *buffer, char *p, int *colp, int *np, int plen);
@@ -315,7 +327,7 @@ static int parse_line(char *line, char *argv[])
 static cmd_tbl_t *find_cmd(const char *cmd)
 {
     cmd_tbl_t *cmdtp;
-    cmd_tbl_t *cmdtp_temp = __shell_cmd_start; /*Init value */
+    cmd_tbl_t *cmdtp_temp = &__shell_cmd_start; /*Init value */
     const char *p;
     int len;
     int n_found = 0;
@@ -326,8 +338,8 @@ static cmd_tbl_t *find_cmd(const char *cmd)
      */
     len = ((p = strchr(cmd, '.')) == NULL) ? strlen(cmd) : (p - cmd);
 
-    for (cmdtp = __shell_cmd_start;
-            cmdtp != __shell_cmd_end;
+    for (cmdtp = &__shell_cmd_start;
+            cmdtp != &__shell_cmd_end;
             cmdtp++)
     {
         if (strncmp(cmd, cmdtp->name, len) == 0)
@@ -481,8 +493,8 @@ int do_help(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
     if (argc == 1)
     {   /*show list of commands */
 
-        int cmd_items = __shell_cmd_end -
-                        __shell_cmd_start; /* pointer arith! */
+        int cmd_items = &__shell_cmd_end -
+                        &__shell_cmd_start; /* pointer arith! */
         cmd_tbl_t *cmd_array[30];
         int i, j, swaps;
 
@@ -491,7 +503,7 @@ int do_help(cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
             log(ERR, "cmd_array~{6(Re5DL+IY#,Gk~}???~{<S~},cmd_items=%d.\n", cmd_items);
         }
         /* Make array of commands from .uboot_cmd section */
-        cmdtp = __shell_cmd_start;
+        cmdtp = &__shell_cmd_start;
         for (i = 0; i < cmd_items; i++)
         {
             cmd_array[i] = cmdtp++;

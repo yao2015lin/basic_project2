@@ -1,9 +1,10 @@
 #include "ws2812b.h"
+#include "BAT32G157.h"
 
 #define PIXEL_MAX 20
 
 static DEV_HAND spifd;
-
+static volatile uint32_t uwTick;
 uint8_t rBuffer[PIXEL_MAX] = {0};
 uint8_t gBuffer[PIXEL_MAX] = {0};
 uint8_t bBuffer[PIXEL_MAX] = {0};
@@ -110,6 +111,30 @@ uint32_t wheel(uint8_t pos)
     return get_32bits_color(pos * 3, 255 - pos * 3, 0);
 }
 
+void SysTick_Handler(void)
+{
+  uwTick++;
+}
+uint32_t HAL_GetTick(void)
+{
+  return uwTick;
+}
+#define HAL_MAX_DELAY      0xFFFFFFFFU
+void HAL_Delay(uint32_t Delay)
+{
+  uint32_t tickstart = HAL_GetTick();
+  uint32_t wait = Delay;
+
+  /* Add a period to guaranty minimum wait */
+  if (wait < HAL_MAX_DELAY)
+  {
+    wait++;
+  }
+
+  while((HAL_GetTick() - tickstart) < wait)
+  {
+  }
+}
 void rainbow(uint8_t wait)
 {
     uint16_t i, j;

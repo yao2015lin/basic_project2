@@ -1,4 +1,5 @@
 #include "priv_os.h"
+#include "cmsis_armcc.h"
 
 /* Determine whether we are in thread mode or handler mode. */
 static int in_isr_mode(void)

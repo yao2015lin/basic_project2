@@ -1,5 +1,6 @@
 #include "init_d.h"
 
+#if 0
 #define FN1  ".ARM.__AT_0x080000e0"
 #define FN2  ".ARM.__AT_0x080000f0"
 #define FN3  ".ARM.__AT_0x08000240"
@@ -8,53 +9,98 @@
 #define FN6  ".ARM.__AT_0x08000380"
 #define FN7  ".ARM.__AT_0x080003C0"
 
-#define  $$BaseSectionfn1   ".ARM.__AT_0x080000e0"
-#define  $$LimitSectionfn1  ".ARM.__AT_0x080000f0"
 
-#define  $$BaseSectionfn2  ".ARM.__AT_0x080000f0"
-#define  $$LimitSectionfn2  ".ARM.__AT_0x08000240"
+#define  $$BaseSectionfn1   "0x080000e0"
+#define  $$LimitSectionfn1  "0x080000ec"
 
-#define  $$BaseSectionfn3   ".ARM.__AT_0x08000240"
-#define  $$LimitSectionfn3  ".ARM.__AT_0x08000260"
+#define  $$BaseSectionfn2  "0x080000f0"
+#define  $$LimitSectionfn2  "0x0800023c"
 
-#define $$BaseSectionfn4   ".ARM.__AT_0x08000260"
-#define  $$LimitSectionfn4  ".ARM.__AT_0x08000340"
+#define  $$BaseSectionfn3   "0x08000240"
+#define  $$LimitSectionfn3  "0x0800025c"
 
-#define  $$BaseSectionfn5  ".ARM.__AT_0x08000340"
-#define  $$LimitSectionfn5 ".ARM.__AT_0x08000380"
+#define $$BaseSectionfn4   "0x08000260"
+#define  $$LimitSectionfn4  "0x0800033c"
 
-#define  $$BaseSectionfn6  ".ARM.__AT_0x08000380"
-#define  $$LimitSectionfn6 ".ARM.__AT_0x080003C0"
+#define  $$BaseSectionfn5  "0x08000340"
+#define  $$LimitSectionfn5 "0x0800037c"
 
-#define $$BaseSectionfn7  ".ARM.__AT_0x080003C0"
-#define  $$LimitSectionfn7 ".ARM.__AT_0x08000400"
+#define  $$BaseSectionfn6  "0x08000380"
+#define  $$LimitSectionfn6 "0x080003bc"
 
-static initcall_t *fn1_start __attribute__((used)) __attribute__((section($$BaseSectionfn1)));
-static initcall_t *fn1_end  __attribute__((used)) __attribute__((section($$LimitSectionfn1)));
+#define $$BaseSectionfn7  "0x080003C0"
+#define  $$LimitSectionfn7 "0x080003fc"
 
-static initcall_t *fn2_start __attribute__((used)) __attribute__((section($$BaseSectionfn2)));
-static initcall_t *fn2_end __attribute__((used)) __attribute__((section($$LimitSectionfn2)));
+static initcall_t *fn1_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn1)));
+static initcall_t *fn1_end  __attribute__((__used__)) __attribute__((section($$LimitSectionfn1)));
 
-static initcall_t *fn3_start __attribute__((used)) __attribute__((section($$BaseSectionfn3)));
-static initcall_t *fn3_end __attribute__((used)) __attribute__((section($$LimitSectionfn3)));
+static initcall_t *fn2_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn2)));
+static initcall_t *fn2_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn2)));
 
-static initcall_t *fn4_start __attribute__((used)) __attribute__((section($$BaseSectionfn4)));
-static initcall_t *fn4_end __attribute__((used)) __attribute__((section($$LimitSectionfn4)));
+static initcall_t *fn3_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn3)));
+static initcall_t *fn3_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn3)));
 
-static initcall_t *fn5_start __attribute__((used)) __attribute__((section($$BaseSectionfn5)));
-static initcall_t *fn5_end __attribute__((used)) __attribute__((section($$LimitSectionfn5)));
+static initcall_t *fn4_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn4)));
+static initcall_t *fn4_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn4)));
 
-static initcall_t *fn6_start __attribute__((used)) __attribute__((section($$BaseSectionfn6)));
-static initcall_t *fn6_end __attribute__((used)) __attribute__((section($$LimitSectionfn6)));
+static initcall_t *fn5_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn5)));
+static initcall_t *fn5_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn5)));
 
-static initcall_t *fn7_start __attribute__((used)) __attribute__((section($$BaseSectionfn7)));
-static initcall_t *fn7_end __attribute__((used)) __attribute__((section($$LimitSectionfn7)));
+static initcall_t *fn6_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn6)));
+static initcall_t *fn6_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn6)));
+
+static initcall_t *fn7_start __attribute__((__used__)) __attribute__((section($$BaseSectionfn7)));
+static initcall_t *fn7_end __attribute__((__used__)) __attribute__((section($$LimitSectionfn7)));
+#endif
+static int arch_init_start( void)
+{
+    return 0;
+}
+arch_init(arch_init_start);
+static int arch_init_end( void)
+{
+    return 0;
+}
+__define_initcall(arch_init_end, 11);
+
+static int device_init_start( void)
+{
+    return 0;
+}
+device_init(device_init_start);
+int device_init_end( void)
+{
+    return 0;
+}
+__define_initcall(device_init_end, 21);
+
+static int modules_init_start( void)
+{
+    return 0;
+}
+modules_init(modules_init_start);
+int modules_init_end( void)
+{
+    return 0;
+}
+__define_initcall(modules_init_end, 31);
+
+static int comp_init_start( void)
+{
+    return 0;
+}
+comp_init(comp_init_start);
+int comp_init_end( void)
+{
+    return 0;
+}
+__define_initcall(comp_init_end, 41);
 
 void driver_init(void)
 {
     initcall_t *tp;
 
-    for (tp = fn1_start; tp < fn1_end; tp++)
+    for (tp = &__initcall_arch_init_start; tp < &__initcall_arch_init_end; tp++)
     {
         if (tp != NULL)
         {
@@ -62,11 +108,11 @@ void driver_init(void)
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn1_start, fn1_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_arch_init_start, __initcall_arch_init_end);
         }
     }
 
-    for (tp = fn2_start; tp < fn2_end; tp++)
+    for (tp = &__initcall_device_init_start; tp < &__initcall_device_init_end; tp++)
     {
         if (tp != NULL)
         {
@@ -74,11 +120,11 @@ void driver_init(void)
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn2_start, fn2_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_device_init_start, __initcall_device_init_end);
         }
     }
 
-    for (tp = fn3_start; tp < fn3_end; tp++)
+    for (tp = &__initcall_modules_init_start; tp < &__initcall_modules_init_end; tp++)
     {
         if (tp != NULL)
         {
@@ -86,11 +132,11 @@ void driver_init(void)
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn3_start, fn3_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_modules_init_start, __initcall_modules_init_end);
         }
     }
 
-    for (tp = fn4_start; tp < fn4_end; tp++)
+    for (tp = &__initcall_comp_init_start; tp < &__initcall_comp_init_end; tp++)
     {
         if (tp != NULL)
         {
@@ -98,19 +144,29 @@ void driver_init(void)
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn4_start, fn4_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_comp_init_start, __initcall_comp_init_end);
         }
     }
 
     
 }
 
+static int task_init_start( void)
+{
+    return 0;
+}
+task_init(task_init_start);
+int task_init_end( void)
+{
+    return 0;
+}
+__define_initcall(task_init_end, 51);
 
 void task_start( void )
 {
     initcall_t *tp;
 
-    for (tp = fn5_start; tp < fn5_end; tp++)
+    for (tp = &__initcall_task_init_start; tp < &__initcall_task_init_start; tp++)
     {
         if (tp != NULL)
         {
@@ -118,16 +174,26 @@ void task_start( void )
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn5_start, fn5_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_task_init_start, __initcall_task_init_start);
         }
     }
 }
 
+static int resume_register_start( void)
+{
+    return 0;
+}
+resume_register(resume_register_start);
+int resume_register_end( void)
+{
+    return 0;
+}
+__define_initcall(resume_register_end, 61);
+
 void task_resume( void )
 {
-initcall_t *tp;
-
-    for (tp = fn6_start; tp < fn6_end; tp++)
+    initcall_t *tp;
+    for (tp = &__initcall_resume_register_start; tp < &__initcall_resume_register_end; tp++)
     {
         if (tp != NULL)
         {
@@ -135,16 +201,25 @@ initcall_t *tp;
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn6_start, fn6_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_resume_register_start, __initcall_resume_register_end);
         }
     }    
 }
-
+static int suspend_register_start( void)
+{
+    return 0;
+}
+suspend_register(suspend_register_start);
+int suspend_register_end( void)
+{
+    return 0;
+}
+__define_initcall(suspend_register_end, 71);
 void task_suspend( void )
 {
     initcall_t *tp;
 
-    for (tp = fn7_start; tp < fn7_end; tp++)
+    for (tp = &__initcall_suspend_register_start; tp < &__initcall_suspend_register_end; tp++)
     {
         if (tp != NULL)
         {
@@ -152,7 +227,7 @@ void task_suspend( void )
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", fn7_start, fn7_end);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_suspend_register_start, __initcall_suspend_register_end);
         }
     }    
 }

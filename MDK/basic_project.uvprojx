@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:BAT32G157GK48FA$SVD\BAT32G157.svd</SFDFile>
+          <SFDFile>.\BAT32G157.SFR</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -80,9 +80,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>fromelf --bin -o "$L@L.bin" "#L"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -188,7 +188,7 @@
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -312,10 +312,10 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>3</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>1</OneElfS>
+            <OneElfS>0</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -325,7 +325,7 @@
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
             <uC99>1</uC99>
-            <uGnu>1</uGnu>
+            <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
             <v6LangP>1</v6LangP>
@@ -369,16 +369,26 @@
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
             <pXoBase></pXoBase>
-            <ScatterFile></ScatterFile>
+            <ScatterFile>.\Objects\basic_project.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc></Misc>
+            <Misc>--keep __initcall_*   --keep __initcall_*</Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
         </TargetArmAds>
       </TargetOption>
       <Groups>
+        <Group>
+          <GroupName>registerestart_init_d</GroupName>
+          <Files>
+            <File>
+              <FileName>init_d.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\registeredstart\init_d\init_d.c</FilePath>
+            </File>
+          </Files>
+        </Group>
         <Group>
           <GroupName>app_rgb</GroupName>
           <Files>
@@ -393,6 +403,11 @@
           <GroupName>app_shell_cmd</GroupName>
           <Files>
             <File>
+              <FileName>shell_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\shell_cmd\shell_cmd.c</FilePath>
+            </File>
+            <File>
               <FileName>cmd_ls.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\application\shell_cmd\cmd_ls.c</FilePath>
@@ -401,11 +416,6 @@
               <FileName>fputc_redirect.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\application\shell_cmd\fputc_redirect.c</FilePath>
-            </File>
-            <File>
-              <FileName>shell_cmd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\application\shell_cmd\shell_cmd.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -463,14 +473,14 @@
           <GroupName>drivers_device</GroupName>
           <Files>
             <File>
-              <FileName>startup_BAT32G157.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\CMSIS\Device\cmsmicon\Source\ARM\startup_BAT32G157.c</FilePath>
-            </File>
-            <File>
               <FileName>startup_BAT32G157.s</FileName>
               <FileType>2</FileType>
               <FilePath>..\Drivers\CMSIS\Device\cmsmicon\Source\ARM\startup_BAT32G157.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_BAT32G157.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\CMSIS\Device\cmsmicon\Source\system_BAT32G157.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -538,11 +548,6 @@
               <FilePath>..\Drivers\Driver\src\pga.c</FilePath>
             </File>
             <File>
-              <FileName>retarget.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\retarget.c</FilePath>
-            </File>
-            <File>
               <FileName>sci.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\sci.c</FilePath>
@@ -551,11 +556,6 @@
               <FileName>sci_user.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\sci_user.c</FilePath>
-            </File>
-            <File>
-              <FileName>tim4.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\tim4.c</FilePath>
             </File>
             <File>
               <FileName>wdt.c</FileName>
@@ -609,16 +609,6 @@
               <FileName>unit.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Middlewares\private\utilities\unit.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>registerestart_init_d</GroupName>
-          <Files>
-            <File>
-              <FileName>init_d.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\registeredstart\init_d\init_d.c</FilePath>
             </File>
           </Files>
         </Group>
