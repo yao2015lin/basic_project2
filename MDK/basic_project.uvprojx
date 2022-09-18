@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>-1</DriverSelection>
+            <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -312,10 +312,10 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>0</OneElfS>
+            <OneElfS>1</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\application\rgb;..\application\shell_cmd;..\components\cm_backtrace;..\components\cm_backtrace\fault_handler\keil;..\components\sleep_time;..\components\time;..\components\watchdog;..\Drivers\CMSIS;..\Drivers\Driver\inc;..\Drivers\modules\rgb_led\ws2812b;..\Middlewares\private\list;..\Middlewares\private\priv_os;..\Middlewares\private\utilities;..\registeredstart\init_d;..\registeredstart\miscdevice;..\registeredstart\register;..\startup\basic_project;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\keil\ARM_CM0;..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\Drivers\CMSIS\Device\cmsmicon\Include;..\Drivers\CMSIS\RTOS\Template</IncludePath>
+              <IncludePath>..\application\rgb;..\application\shell_cmd;..\components\cm_backtrace;..\components\cm_backtrace\fault_handler\keil;..\components\sleep_time;..\components\time;..\components\watchdog;..\Drivers\CMSIS;..\Drivers\Driver\inc;..\Drivers\modules\rgb_led\ws2812b;..\Middlewares\private\list;..\Middlewares\private\priv_os;..\Middlewares\private\utilities;..\registeredstart\init_d;..\registeredstart\miscdevice;..\registeredstart\register;..\startup\basic_project;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\keil\ARM_CM0;..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\Drivers\CMSIS\Device\cmsmicon\Include;..\Drivers\CMSIS\RTOS\Template;..\Drivers\platform\BAT32\gpio_led;..\Drivers\modules\led</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -372,7 +372,7 @@
             <ScatterFile>.\Objects\basic_project.sct</ScatterFile>
             <IncludeLibs></IncludeLibs>
             <IncludeLibsPath></IncludeLibsPath>
-            <Misc>--keep __initcall_*   --keep __initcall_*</Misc>
+            <Misc></Misc>
             <LinkerInputFile></LinkerInputFile>
             <DisabledWarnings></DisabledWarnings>
           </LDads>
@@ -401,63 +401,18 @@
         </Group>
         <Group>
           <GroupName>app_shell_cmd</GroupName>
-          <Files>
-            <File>
-              <FileName>shell_cmd.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\application\shell_cmd\shell_cmd.c</FilePath>
-            </File>
-            <File>
-              <FileName>cmd_ls.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\application\shell_cmd\cmd_ls.c</FilePath>
-            </File>
-            <File>
-              <FileName>fputc_redirect.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\application\shell_cmd\fputc_redirect.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>components_sleep_time</GroupName>
-          <Files>
-            <File>
-              <FileName>sleep_time.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\components\sleep_time\sleep_time.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>components_time</GroupName>
-          <Files>
-            <File>
-              <FileName>time.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\components\time\time.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>components_watchdog</GroupName>
-          <Files>
-            <File>
-              <FileName>watchdog.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\components\watchdog\watchdog.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>componentscm_backrace</GroupName>
-          <Files>
-            <File>
-              <FileName>cm_backtrace.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\components\cm_backtrace\cm_backtrace.c</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>drivers_CMSIS</GroupName>
@@ -488,34 +443,9 @@
           <GroupName>drivers_driver</GroupName>
           <Files>
             <File>
-              <FileName>adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\adc.c</FilePath>
-            </File>
-            <File>
               <FileName>clk.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\clk.c</FilePath>
-            </File>
-            <File>
-              <FileName>cmp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\cmp.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>elc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\elc.c</FilePath>
-            </File>
-            <File>
-              <FileName>flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\flash.c</FilePath>
             </File>
             <File>
               <FileName>gpio.c</FileName>
@@ -538,16 +468,6 @@
               <FilePath>..\Drivers\Driver\src\intp.c</FilePath>
             </File>
             <File>
-              <FileName>key.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\key.c</FilePath>
-            </File>
-            <File>
-              <FileName>pga.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\pga.c</FilePath>
-            </File>
-            <File>
               <FileName>sci.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\sci.c</FilePath>
@@ -556,16 +476,6 @@
               <FileName>sci_user.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\sci_user.c</FilePath>
-            </File>
-            <File>
-              <FileName>wdt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\wdt.c</FilePath>
-            </File>
-            <File>
-              <FileName>wdt_user.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Drivers\Driver\src\wdt_user.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -579,6 +489,11 @@
               <FileName>ws2812b.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\modules\rgb_led\ws2812b\ws2812b.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\modules\led\led.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -694,6 +609,21 @@
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\startup\basic_project\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>BAT32G_157_it.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\startup\basic_project\BAT32G_157_it.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>drivers_platform_BAT32_gpio_led</GroupName>
+          <Files>
+            <File>
+              <FileName>gpio_led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\platform\BAT32\gpio_led\gpio_led.c</FilePath>
             </File>
           </Files>
         </Group>

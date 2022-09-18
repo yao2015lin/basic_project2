@@ -166,7 +166,7 @@ void task_start( void )
 {
     initcall_t *tp;
 
-    for (tp = &__initcall_task_init_start; tp < &__initcall_task_init_start; tp++)
+    for (tp = &__initcall_task_init_start; tp < &__initcall_task_init_end; tp++)
     {
         if (tp != NULL)
         {
@@ -174,7 +174,7 @@ void task_start( void )
         }
         else
         {
-            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_task_init_start, __initcall_task_init_start);
+            log(ERR, "fn init is error , start=%x , end = %x\n", __initcall_task_init_start, __initcall_task_init_end);
         }
     }
 }

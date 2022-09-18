@@ -70,12 +70,12 @@ void startup_task(void const *argument)
     /* task init*/
     task_start();
 
-    HAL_Delay(2000);
+   // HAL_Delay(2000);
 
     while (1)
     {
-        feed_dog();
-        osDelay(20000); 
+        //feed_dog();
+        osDelay(20); 
     }
 }
 
@@ -97,8 +97,9 @@ void startup(void)
 
 int main(void) 
 {
+    uint32_t msCnt;
     /* Output error message for HARDFAULT*/
-    HAL_HardfaultDebug_init();
+    //HAL_HardfaultDebug_init();
     
     /* reset of all peripherals, Initializes the Flash interface and the Systick. */
     //HAL_Init();
@@ -108,6 +109,9 @@ int main(void)
 
     /* Configure the system clock */
     //HAL_Sysclk_Init();
+    SystemCoreClockUpdate();
+	  msCnt = SystemCoreClock / 1000;
+	  SysTick_Config(msCnt); 
 
     /* Config pwr clock*/
     //HAL_Pwr_Init();
@@ -183,3 +187,72 @@ void assert_failed(char *file, uint32_t line)
 #endif /* USE_FULL_ASSERT */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+
+/***********************************************************************************************************************
+* Function Name: HardFault_Handler
+* Description  : Hard Fault handler to report stacked register values
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+// Hard Fault handler in C, with stack frame location and LR value
+// extracted from the assembly wrapper as input parameters
+void hard_fault_handler_c(unsigned int * hardfault_args, unsigned lr_value)
+{
+	unsigned int stacked_r0;
+	unsigned int stacked_r1;
+	unsigned int stacked_r2;
+	unsigned int stacked_r3;
+	unsigned int stacked_r12;
+	unsigned int stacked_lr;
+	unsigned int stacked_pc;
+	unsigned int stacked_psr;
+	
+	stacked_r0 = ((unsigned long) hardfault_args[0]);
+	stacked_r1 = ((unsigned long) hardfault_args[1]);
+	stacked_r2 = ((unsigned long) hardfault_args[2]);
+	stacked_r3 = ((unsigned long) hardfault_args[3]);
+	stacked_r12 = ((unsigned long) hardfault_args[4]);
+	stacked_lr = ((unsigned long) hardfault_args[5]);
+	stacked_pc = ((unsigned long) hardfault_args[6]);
+	stacked_psr = ((unsigned long) hardfault_args[7]);
+	
+	printf ("[Hard fault handler]\r\n");
+	printf ("R0 = %x\r\n", stacked_r0);
+	printf ("R1 = %x\r\n", stacked_r1);
+	printf ("R2 = %x\r\n", stacked_r2);
+	printf ("R3 = %x\r\n", stacked_r3);
+	printf ("R12 = %x\r\n", stacked_r12);
+	printf ("Stacked LR = %x\r\n", stacked_lr);
+	printf ("Stacked PC = %x\r\n", stacked_pc);
+	printf ("Stacked PSR = %x\r\n", stacked_psr);
+	printf ("Current LR = %x\r\n", lr_value);
+	
+	while(1); // endless loop
+}
+
+/***********************************************************************************************************************
+* Function Name: HardFault_Handler
+* Description  : Assembly wrapper using Embedded Assembler in Keil MDK
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+// Hard Fault handler wrapper in assembly
+// It extracts the location of stack frame and passes it to handler
+// in C as a pointer. We also extract the LR value as second
+// parameter.
+__asm void HardFault_Handler(void)
+{
+		MOVS 	r0, #4
+		MOV 	r1, LR
+		TST 	r0, r1
+		BEQ 	stacking_used_MSP
+		MRS 	R0, PSP ; first parameter - stacking was using PSP
+		B 		get_LR_and_branch
+stacking_used_MSP
+		MRS 	R0, MSP ; first parameter - stacking was using MSP
+get_LR_and_branch
+		MOV 	R1, LR ; second parameter is LR current value
+		LDR 	R2,=__cpp(hard_fault_handler_c)
+		BX 		R2
+}

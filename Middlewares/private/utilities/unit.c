@@ -28,9 +28,9 @@ void printf_time( void )
 {
     time_t tim;
     
-    getltime(&tim);
+    //getltime(&tim);
     
-    printf("[%02d-%02d-%02d %02d:%02d:%02d]",tim.year, tim.mon, tim.day, tim.hour, tim.min, tim.sec);
+   // printf("[%02d-%02d-%02d %02d:%02d:%02d]",tim.year, tim.mon, tim.day, tim.hour, tim.min, tim.sec);
       
 }
 
@@ -208,7 +208,8 @@ void sysclock_resurm( void )
 {
     if( sysclock_is_pll() == FALSE )
     {
-        HAL_Sysclk_Init();
+        //HAL_Sysclk_Init();
+        //SystemInit();
     }
 }
 

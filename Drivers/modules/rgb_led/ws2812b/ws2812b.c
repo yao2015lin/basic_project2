@@ -1,10 +1,10 @@
 #include "ws2812b.h"
-#include "BAT32G157.h"
+#include "BAT32G_157_it.h"
 
 #define PIXEL_MAX 20
 
 static DEV_HAND spifd;
-static volatile uint32_t uwTick;
+
 uint8_t rBuffer[PIXEL_MAX] = {0};
 uint8_t gBuffer[PIXEL_MAX] = {0};
 uint8_t bBuffer[PIXEL_MAX] = {0};
@@ -21,12 +21,12 @@ static void send_bytes(uint8_t dat)
         if ((dat & 0x80) == 0x80)
         {
             //HAL_SPI_Transmit_DMA(&hspi, &CodeOne, 1);
-            c_write(spifd , &code_one , 1);
+            //c_write(spifd , &code_one , 1);
         }
         else
         {
             //HAL_SPI_Transmit_DMA(&hspi, &CodeZero, 1);
-            c_write(spifd , &code_zero , 1);
+            //c_write(spifd , &code_zero , 1);
         }
         dat = dat << 1;
     }
@@ -111,14 +111,8 @@ uint32_t wheel(uint8_t pos)
     return get_32bits_color(pos * 3, 255 - pos * 3, 0);
 }
 
-void SysTick_Handler(void)
-{
-  uwTick++;
-}
-uint32_t HAL_GetTick(void)
-{
-  return uwTick;
-}
+
+
 #define HAL_MAX_DELAY      0xFFFFFFFFU
 void HAL_Delay(uint32_t Delay)
 {
@@ -192,9 +186,9 @@ static int ws2812_open(FIL_HAND *fd)
 
 static struct rgb_type
 {
-    uint8_t *r;
-    uint8_t *g;
-    uint8_t *b;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 };
 
 int ws2812_write(FIL_HAND *fd, const void *buf, uint32_t count)
@@ -208,7 +202,7 @@ int ws2812_write(FIL_HAND *fd, const void *buf, uint32_t count)
     }
     for (i = 0; i < PIXEL_MAX; i++)
     {
-        send_rgb_bytes((uint8_t)t->r[i], (uint8_t)t->g[i], (uint8_t)t->b[i]);
+        send_rgb_bytes(t[i].r, t[i].g, t[i].b);
     }
     pixel_update();
     

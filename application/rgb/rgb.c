@@ -10,19 +10,26 @@ struct rgb_type
     uint8_t g;
     uint8_t b;
 };
+struct led_type
+{
+    uint16_t  index;
+    uint8_t   event;
+    uint8_t   rev;
+};
 
 static DEV_HAND fd;
 static xTaskHandle rgb_handle;
 static struct rgb_type rgb[PIXEL_MAX];
-
+static DEV_HAND led_fd;
 static void rgb_process(void const *parma)
 {
  
     task_assert(parma);
-    
+    struct led_type led;
     fd = c_open("ws2812b" , 0);
     INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"ws2812b");
-    
+    led_fd = c_open("led" , 0);
+    INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"led");
     for( uint8_t i = 0 ; i < PIXEL_MAX ; i++ )
     {
         rgb[i].r = 255;
@@ -33,7 +40,21 @@ static void rgb_process(void const *parma)
     c_write(fd , ( uint8_t *)rgb , PIXEL_MAX);
     while (1)
     {
-        sys_delay(30);
+        led.index = 0;
+        led.event = 0;
+        c_write(led_fd, ( uint8_t *)&led, sizeof(led));
+        led.index = 1;
+        led.event = 1;
+        c_write(led_fd, ( uint8_t *)&led, sizeof(led));
+        sys_delay(500);
+        led.index = 0;
+        led.event = 1;
+        c_write(led_fd, ( uint8_t *)&led, sizeof(led));
+        led.index = 1;
+        led.event = 0;
+        c_write(led_fd, ( uint8_t *)&led, sizeof(led));
+		sys_delay(500);
+
     }
 }
 

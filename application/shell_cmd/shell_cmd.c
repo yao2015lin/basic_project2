@@ -634,9 +634,9 @@ static void shell_cmd_task(void const *pvParameters)
 
 int shell_cmd(void)
 {
-    osThreadDef(shell, shell_cmd_task, osPriorityLow, 0, configMINIMAL_STACK_SIZE * 6);
-    shellcmd_handle = osThreadCreate(osThread(shell), NULL);
-    configASSERT(shellcmd_handle)
+    //osThreadDef(shell, shell_cmd_task, osPriorityLow, 0, configMINIMAL_STACK_SIZE * 6);
+    //shellcmd_handle = osThreadCreate(osThread(shell), NULL);
+    //configASSERT(shellcmd_handle)
 
     return 0;
 }
