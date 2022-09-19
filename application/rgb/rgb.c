@@ -1,9 +1,6 @@
 #include "rgb.h"
 #include "init_d.h"
 
-
-
-
 struct rgb_type
 {
     uint8_t r;

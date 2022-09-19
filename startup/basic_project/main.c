@@ -12,6 +12,7 @@
 #include "version.h"
 #include "cm_backtrace.h"
 #include "watchdog.h"
+#include "userdefine.h"
 
 osThreadId startup_handle;
 
@@ -108,7 +109,6 @@ int main(void)
     HAL_GetUID();
 
     /* Configure the system clock */
-    //HAL_Sysclk_Init();
     SystemCoreClockUpdate();
 	  msCnt = SystemCoreClock / 1000;
 	  SysTick_Config(msCnt); 
@@ -117,6 +117,13 @@ int main(void)
     //HAL_Pwr_Init();
     
     /* Init serial for printf port*/
+    MD_STATUS status;
+    SystemCoreClockUpdate();
+	  status = UART0_Init(SystemCoreClock, 115200);
+	  if(status == MD_ERROR)
+	  {
+		  while(1);
+	  }
     //HAL_Debug_init();
 
     /* Printf system info ,clock device version...*/
