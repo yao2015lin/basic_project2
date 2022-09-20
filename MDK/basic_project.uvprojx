@@ -407,6 +407,16 @@
               <FileType>1</FileType>
               <FilePath>..\application\shell_cmd\fputc_redirect.c</FilePath>
             </File>
+            <File>
+              <FileName>cmd_ls.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\shell_cmd\cmd_ls.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\application\shell_cmd\shell_cmd.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

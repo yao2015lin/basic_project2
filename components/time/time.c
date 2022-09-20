@@ -15,9 +15,9 @@ void getltime(time_t *tm)
 
 int time_init(void)
 {   
-    fd = c_open("stm32l4_rtc", 0);
+    fd = c_open("bat32_157_rtc", 0);
 
-    INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"Loading stm32l4xx rtc component");
+    INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"Loading bat32 rtc component");
 
     return 0;
 }
