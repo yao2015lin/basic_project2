@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\application\rgb;..\application\shell_cmd;..\components\cm_backtrace;..\components\cm_backtrace\fault_handler\keil;..\components\sleep_time;..\components\time;..\components\watchdog;..\Drivers\CMSIS;..\Drivers\Driver\inc;..\Drivers\modules\rgb_led\ws2812b;..\Middlewares\private\list;..\Middlewares\private\priv_os;..\Middlewares\private\utilities;..\registeredstart\init_d;..\registeredstart\miscdevice;..\registeredstart\register;..\startup\basic_project;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\keil\ARM_CM0;..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\Drivers\CMSIS\Device\cmsmicon\Include;..\Drivers\CMSIS\RTOS\Template;..\Drivers\platform\BAT32\gpio_led;..\Drivers\modules\led</IncludePath>
+              <IncludePath>..\application\rgb;..\application\shell_cmd;..\components\cm_backtrace;..\components\cm_backtrace\fault_handler\keil;..\components\sleep_time;..\components\time;..\components\watchdog;..\Drivers\CMSIS;..\Drivers\Driver\inc;..\Drivers\modules\rgb_led\ws2812b;..\Middlewares\private\list;..\Middlewares\private\priv_os;..\Middlewares\private\utilities;..\registeredstart\init_d;..\registeredstart\miscdevice;..\registeredstart\register;..\startup\basic_project;..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS;..\Middlewares\Third_Party\FreeRTOS\Source\include;..\Middlewares\Third_Party\FreeRTOS\Source\portable\keil\ARM_CM0;..\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang;..\Drivers\CMSIS\Device\cmsmicon\Include;..\Drivers\CMSIS\RTOS\Template;..\Drivers\platform\BAT32\gpio_led;..\Drivers\modules\led;..\Drivers\platform\BAT32\uart;..\Drivers\platform\BAT32\wdg</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -427,9 +427,23 @@
         </Group>
         <Group>
           <GroupName>components_watchdog</GroupName>
+          <Files>
+            <File>
+              <FileName>watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\components\watchdog\watchdog.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>componentscm_backrace</GroupName>
+          <Files>
+            <File>
+              <FileName>cm_backtrace.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\components\cm_backtrace\cm_backtrace.c</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>drivers_CMSIS</GroupName>
@@ -493,6 +507,11 @@
               <FileName>sci_user.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\Driver\src\sci_user.c</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\Driver\src\wdt.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -641,6 +660,26 @@
               <FileName>gpio_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Drivers\platform\BAT32\gpio_led\gpio_led.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>driver_platform_uart0</GroupName>
+          <Files>
+            <File>
+              <FileName>uart0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\platform\BAT32\uart\uart0.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>driver_platform_BAT32_wdg</GroupName>
+          <Files>
+            <File>
+              <FileName>wdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\platform\BAT32\wdg\wdg.c</FilePath>
             </File>
           </Files>
         </Group>

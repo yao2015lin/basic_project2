@@ -608,7 +608,7 @@ static void shell_cmd_task(void const *pvParameters)
     configASSERT(((unsigned long)pvParameters) == 0);
     
     
-    fd = c_open("com2", 0);
+    fd = c_open("com0", 0);
 
     INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"open serial_debug");
     

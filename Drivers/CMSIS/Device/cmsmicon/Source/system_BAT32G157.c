@@ -79,7 +79,7 @@ const uint8_t user_opt_data[8] __attribute__((used)) __attribute__((section(".AR
 //     </e>
 //   </e>
 // </h>
-    0xEF,
+    0xFF,
 
 /**
  * @brief LVD Control BYTE (C1H)

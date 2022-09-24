@@ -9,9 +9,9 @@ void feed_dog( void )
 
 int watchdog_init(void)
 {   
-    fd = c_open("iwdg", 0);
+    fd = c_open("wdg", 0);
 
-    INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"Loading stm32l4xx iwdg component");
+    INIT_PRINT( (fd==NULL)?INIT_FAIL:INIT_OK,"Loading bat32a157 wdg component");
 
     return 0;
 }

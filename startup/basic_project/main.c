@@ -1,6 +1,6 @@
 
 /* Includes ------------------------------------------------------------------*/
-//#include "startup.h"
+#include "startup.h"
 #include "BAT32G157.h"
 #include "cmsis_os.h"
 #include "init_d.h"
@@ -75,7 +75,7 @@ void startup_task(void const *argument)
 
     while (1)
     {
-        //feed_dog();
+        feed_dog();
         osDelay(20); 
     }
 }
@@ -100,7 +100,7 @@ int main(void)
 {
     uint32_t msCnt;
     /* Output error message for HARDFAULT*/
-    //HAL_HardfaultDebug_init();
+    HAL_HardfaultDebug_init();
     
     /* reset of all peripherals, Initializes the Flash interface and the Systick. */
     //HAL_Init();
@@ -117,14 +117,7 @@ int main(void)
     //HAL_Pwr_Init();
     
     /* Init serial for printf port*/
-    MD_STATUS status;
-    SystemCoreClockUpdate();
-	  status = UART0_Init(SystemCoreClock, 115200);
-	  if(status == MD_ERROR)
-	  {
-		  while(1);
-	  }
-    //HAL_Debug_init();
+    HAL_Debug_init();
 
     /* Printf system info ,clock device version...*/
     prtsrce_sysinf();

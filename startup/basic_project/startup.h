@@ -9,9 +9,9 @@ extern "C"
 #include <stdint.h>
 #include "cmsis_os.h"
 
-//#include "serial1.h"
-  
-#define HAL_Debug_init serial1_hal_init
+#include "uart0.h"
+extern void com0_hal_init( void );  
+#define HAL_Debug_init  com0_hal_init
 
   
 extern uint8_t chipUid[12];

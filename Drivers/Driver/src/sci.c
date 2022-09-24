@@ -120,7 +120,39 @@ volatile uint16_t g_iic21_rx_count;          /* iic21 receive data size by maste
 volatile uint16_t g_iic21_rx_length;         /* iic21 receive data length by master mode */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-
+/***********************************************************************************************************************
+* Function Name: UART0_Start
+* @brief  This function starts the UART1 module operation.
+* @param  None
+* @return None
+***********************************************************************************************************************/
+void UART0_Start(void)
+{
+    SCI0->SO0 |= _0001_SCI_CH0_DATA_OUTPUT_1;
+    SCI0->SOE0 |= _0001_SCI_CH0_OUTPUT_ENABLE;
+    SCI0->SS0 |= _0001_SCI_CH0_START_TRG_ON | _0001_SCI_CH0_START_TRG_ON;
+    INTC_ClearPendingIRQ(ST0_IRQn); /* clear INTST1 interrupt flag */
+    INTC_ClearPendingIRQ(SR0_IRQn); /* clear INTSR1 interrupt flag */
+    NVIC_ClearPendingIRQ(ST0_IRQn); /* clear INTST1 interrupt flag */
+    NVIC_ClearPendingIRQ(SR0_IRQn); /* clear INTSR1 interrupt flag */
+    INTC_EnableIRQ(ST0_IRQn);       /* enable INTST1 interrupt */
+    INTC_EnableIRQ(SR0_IRQn);       /* enable INTSR1 interrupt */
+}
+/***********************************************************************************************************************
+* Function Name: UART0_Stop
+* @brief  This function stops the UART0 module operation.
+* @param  None
+* @return None
+***********************************************************************************************************************/
+void UART0_Stop(void)
+{
+    INTC_DisableIRQ(ST0_IRQn); /* disable INTST1 interrupt */
+    INTC_DisableIRQ(SR0_IRQn); /* disable INTSR1 interrupt */
+    SCI0->ST0 |= _0002_SCI_CH1_STOP_TRG_ON | _0001_SCI_CH0_STOP_TRG_ON;
+    SCI0->SOE0 &= (uint16_t)~_0001_SCI_CH0_OUTPUT_ENABLE;
+    INTC_ClearPendingIRQ(ST0_IRQn); /* clear INTST1 interrupt flag */
+    INTC_ClearPendingIRQ(SR0_IRQn); /* clear INTSR1 interrupt flag */
+}
 /***********************************************************************************************************************
 * Function Name: UART0_Init
 * @brief  This function initializes the UART0 module.
@@ -159,6 +191,7 @@ MD_STATUS UART0_Init(uint32_t freq, uint32_t baud)
     RXD0_PORT_SETTING();
     /* UART0 Start, Setting baud rate */
     status = UART0_BaudRate(freq, baud);
+    UART0_Start();
     return (status);
 }
 
@@ -270,6 +303,50 @@ char UART0_Receive()
 }
 
 
+MD_STATUS UART0_Send_data(uint8_t *const tx_buf, uint16_t tx_num)
+{
+    MD_STATUS status = MD_OK;
+
+    if (tx_num < 1U)
+    {
+        status = MD_ARGERROR;
+    }
+    else
+    {
+        gp_uart0_tx_address = tx_buf;
+        g_uart0_tx_count = tx_num;
+        SCI0->TXD0 = *gp_uart0_tx_address;
+        gp_uart0_tx_address++;
+        g_uart0_tx_count--;
+    }
+
+    return (status);
+}
+
+/***********************************************************************************************************************
+* Function Name: UART0_Receive
+* @brief  This function receives UART0 data.
+* @param  rx_buf - receive buffer pointer
+* @param  rx_num - buffer size
+* @return status - MD_OK or MD_ARGERROR
+***********************************************************************************************************************/
+MD_STATUS UART0_Receive_data(uint8_t *const rx_buf, uint16_t rx_num)
+{
+    MD_STATUS status = MD_OK;
+
+    if (rx_num < 1U)
+    {
+        status = MD_ARGERROR;
+    }
+    else
+    {
+        g_uart0_rx_count = 0U;
+        g_uart0_rx_length = rx_num;
+        gp_uart0_rx_address = rx_buf;
+    }
+
+    return (status);
+}
 /***********************************************************************************************************************
 * Function Name: SPI01_MasterInit
 * @brief  This function initializes the SPI01 module.
