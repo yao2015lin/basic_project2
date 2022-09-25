@@ -2,12 +2,6 @@
 
 
 
-int com0_clock_init( void )
-{
-
-    
-    return 0;
-}
 
 int serial_0_open(FIL_HAND *fd)
 {

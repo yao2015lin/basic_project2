@@ -14,6 +14,7 @@ extern "C"
 #include "miscdevice.h"
 #include "priv_os.h"
 #include "startup.h"
+#include "spi1.h"
 
       
 #ifdef __cplusplus

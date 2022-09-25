@@ -21,12 +21,12 @@ static void send_bytes(uint8_t dat)
         if ((dat & 0x80) == 0x80)
         {
             //HAL_SPI_Transmit_DMA(&hspi, &CodeOne, 1);
-            //c_write(spifd , &code_one , 1);
+            c_write(spifd , &code_one , 1);
         }
         else
         {
             //HAL_SPI_Transmit_DMA(&hspi, &CodeZero, 1);
-            //c_write(spifd , &code_zero , 1);
+            c_write(spifd , &code_zero , 1);
         }
         dat = dat << 1;
     }
@@ -172,8 +172,8 @@ static int ws2812_open(FIL_HAND *fd)
 {
     uint8_t res_code[50] = {0};
     
-    spifd = c_open("spi3", 0);
-    INIT_PRINT((spifd == NULL) ? INIT_FAIL : INIT_OK, "open spi3");
+    spifd = c_open("spi1", 0);
+    INIT_PRINT((spifd == NULL) ? INIT_FAIL : INIT_OK, "open spi1");
 
     memset( rBuffer , 0 , PIXEL_MAX);
     memset( gBuffer , 0 , PIXEL_MAX);

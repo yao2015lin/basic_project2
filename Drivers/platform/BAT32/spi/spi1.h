@@ -1,5 +1,5 @@
-#ifndef __UART0_H
-#define __UART0_H
+#ifndef __SPI1_H
+#define __SPI1_H
 
 #ifdef __cplusplus
 extern "C"
@@ -36,7 +36,6 @@ extern "C"
   /**
   * @}
   */
- void com0_hal_init( void );
 
 #ifdef __cplusplus
 }

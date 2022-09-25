@@ -167,7 +167,7 @@ Each channel of SCI has three functions: UART, SPI, and IIC. You can only choose
 
 /* ToDo: You can only define ONE of the following THREE MACROs according to your application */
 //#define USE_SCI_UART1_RX      /*! Using CH1 of SCI1 as UART Receiver */
-//#define USE_SCI_SPI11         /*! Using CH1 of SCI1 as SPI Transmitter or Receiver */
+#define USE_SCI_SPI11         /*! Using CH1 of SCI1 as SPI Transmitter or Receiver */
 //#define USE_SCI_IIC11         /*! Using CH1 of SCI1 as IIC Transmitter or Receiver */
 
 /* ToDo: You can only define ONE of the following THREE MACROs according to your application */
